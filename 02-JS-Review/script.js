@@ -143,8 +143,8 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
-//Destructuring
-
+// DECONSTRUCTING
+/*
 const book = getBook(1);
 book;
 // const title = book.title;
@@ -230,3 +230,111 @@ function getTotalReviewCount(book) {
   const librarything = book.reviews.librarything?.reviewsCount ?? 0;
   return goodread + librarything;
 }
+*/
+
+//ARRAY METHODS
+
+//Now using Array Map Method
+/*
+  Example:
+  const x = [1,2,3,4].map((el) = > el *2);
+  console.log(x); This would give us [2,4,6,8]
+*/
+
+/*
+//We want an array with all the titles of the books
+function getTotalReviewCount(book) {
+  const goodread = book.reviews.goodreads.reviewsCount;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodread + librarything;
+}
+const books = getBooks();
+const titles = books.map((book) => book.title);
+titles;
+
+//want to only get the essential data for each book
+// you can replace the return with a set of ({ code };)
+const essentialData = books.map((book) => {
+  return {
+    title: book.title,
+    author: book.author,
+    reviewsCount: getTotalReviewCount(book),
+  };
+});
+essentialData;
+
+//THE FILTER METHOD
+//create an array with only books with > 500 pages
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooks;
+
+const adventureBooks = books
+  .filter((books) => books.genres.includes("adventure"))
+  .map((book) => book.title);
+adventureBooks;
+
+//ARRAY REDUCE METHOD
+//goal is to reduce the array to just one value.
+//in this case we want all the pages amount added
+//Start at 0. sum will be 0 but then add acc + first page number.
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pagesAllBooks;
+
+//Array Sort method
+/*
+  const x = [3,7,1,9,6];
+  const sorted = x.sort((a,b)=>a-b) // want descending than do b-a
+  sorted; -> [1,3,0,7,9]
+Good to know that this method changed the original array. 
+sorted array and x array would be the same so do this to not mutate
+  const sorted = x.slice().sort((a,b)=>a-b) // want descending than do b-a
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+sortedByPages;
+
+//Immutable Array
+//Operations where we do not erase the underlaying array
+//1. Add book obj to array
+const newBook = {
+  id: 6,
+  title: "Harry Portter and the Chamber of Secrets",
+  author: "J.K. Rowling",
+};
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+//2. delete the book
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+//3.Update
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id === 1 ? { ...book, pages: 1210 } : book
+);
+booksAfterUpdate;
+*/
+
+// Asynchronous JS: Promises
+//To fetch data from api (the website). This takes time.
+// This returns a promis cuz while it fetches
+//    console.log(fetch("https://jsonplaceholder.typicode.com/todos"));
+// .json is also a method we need to wait for
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+// console.log("Pita");
+//Above  is not the best way to do it. await will wait
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
+const todos = getTodos();
+
+console.log(todos);
+console.log("Pita");

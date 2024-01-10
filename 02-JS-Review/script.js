@@ -143,7 +143,7 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
-//Destructuring 
+//Destructuring
 
 const book = getBook(1);
 book;
@@ -152,23 +152,81 @@ book;
 // author;
 // console.log(title, author);
 
-const { title, author, pages, publicationDate, genres, hasMovieAdaptation} = book;
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
 
 console.log(author, title, genres);
 
-//destructing with arrays 
+//destructing with arrays
 // const primaryGenre = genres[0];
 // const secondaryGenre = genres[1];
 
-const [primaryGenre, secondaryGenre, ... otherGenres]= genres;
-console.log(primaryGenre,secondaryGenre,otherGenres );
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+console.log(primaryGenre, secondaryGenre, otherGenres);
 
 //what if we wanted to add the genres to an array and add a new genre:
 //This will give us the genre array in [0], and then the new
 //  const newGenres = [genres, 'epic fanctasy'];
 //This will fill the array with genres and then add it
-const newGenres = [...genres, 'epic fanctasy'];
+const newGenres = [...genres, "epic fanctasy"];
 newGenres;
 
-const updatedBook = { ...book, moviePublicationDate: "2001-12-19"};
+const updatedBook = { ...book, moviePublicationDate: "2001-12-19" };
 updatedBook;
+
+//TEMPLATE LITERALS
+// ${} inserting a variable. Note that is has to be `` these not ''
+// so ${title} is allowed because we deconstructed the variable in line 155. if not we would have to do book.title
+// at the end we split the publication date by the dash and got the first variable.
+//ARROW FUNCTIONS
+//This is the old way of doing this
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+// console.log(getYear(publicationDate));
+
+const getYear = (str) => str.split("-")[0];
+console.log(getYear(publicationDate));
+
+const summary = `${title}, a ${pages}-page long book was written by ${author} and publsihed in ${getYear(
+  publicationDate
+)} The book has ${hasMovieAdaptation ? "" : "not"} been adapted as a movie`;
+summary;
+
+//The ternarie operator
+// has three opperands.
+// 1. condition. if true  excecute after ?
+const pagesRange = pages > 1000 ? "over a 1000" : "less than 1000";
+pagesRange; //true cuz we have lord of rings 1216. Its lord of the rings because we have getBook(1)
+
+console.log(`The book has ${pagesRange} pages`);
+
+//Short circuit and Logic operators
+// So && will look at the second value only when the first value is true. We can use it as an if else cuz if true then print
+// Things that are flasy values: 0, null, ''
+console.log(hasMovieAdaptation && "This book has a movie");
+
+// || works the opposite was of &&
+const spanishTranslataion = book.translations.spanish || "NOT TRANSLATED";
+spanishTranslataion;
+
+console.log(book.reviews.librarything.reviewsCount);
+//bad example of using cuz we dont want no data we want the value 0
+// const countWrong = book.reviews.librarything.reviewsCount || "no data";
+// countWrong; //we get no data cuz book(2) has 0
+
+const count = book.reviews.librarything.reviewsCount ?? "no data";
+count;
+
+// So for book three there is no reviews for libraray anything so this code:
+//    const librarything = book.reviews.librarything.reviewsCount;  would give us undefined
+// so if we add this code:
+//   const librarything = book.reviews.librarything?.reviewsCount;
+// Then if its undefined then done look a reviews count but we would get NAN
+// So solution is adding a default value
+//    const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+function getTotalReviewCount(book) {
+  const goodread = book.reviews.goodreads.reviewsCount;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+  return goodread + librarything;
+}

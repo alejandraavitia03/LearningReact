@@ -161,8 +161,7 @@ console.log(author, title, genres);
 //destructing with arrays
 // const primaryGenre = genres[0];
 // const secondaryGenre = genres[1];
-// '...' is the spread operator. Other genres will be an array of the rest of the genres
-// spread operator only goes in the last index when deconstructing
+
 const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
 console.log(primaryGenre, secondaryGenre, otherGenres);
 
@@ -173,6 +172,5 @@ console.log(primaryGenre, secondaryGenre, otherGenres);
 const newGenres = [...genres, "epic fanctasy"];
 newGenres;
 
-//
 const updatedBook = { ...book, moviePublicationDate: "2001-12-19" };
 updatedBook;

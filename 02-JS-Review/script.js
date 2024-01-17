@@ -143,7 +143,7 @@ function getBook(id) {
   return data.find((d) => d.id === id);
 }
 
-//Destructuring 
+//Destructuring
 
 const book = getBook(1);
 book;
@@ -152,23 +152,27 @@ book;
 // author;
 // console.log(title, author);
 
-const { title, author, pages, publicationDate, genres, hasMovieAdaptation} = book;
+// this is the object destructing. we say what we want to get from the object and saving it to a var
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
 
 console.log(author, title, genres);
 
-//destructing with arrays 
+//destructing with arrays
 // const primaryGenre = genres[0];
 // const secondaryGenre = genres[1];
-
-const [primaryGenre, secondaryGenre, ... otherGenres]= genres;
-console.log(primaryGenre,secondaryGenre,otherGenres );
+// '...' is the spread operator. Other genres will be an array of the rest of the genres
+// spread operator only goes in the last index when deconstructing
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+console.log(primaryGenre, secondaryGenre, otherGenres);
 
 //what if we wanted to add the genres to an array and add a new genre:
 //This will give us the genre array in [0], and then the new
 //  const newGenres = [genres, 'epic fanctasy'];
 //This will fill the array with genres and then add it
-const newGenres = [...genres, 'epic fanctasy'];
+const newGenres = [...genres, "epic fanctasy"];
 newGenres;
 
-const updatedBook = { ...book, moviePublicationDate: "2001-12-19"};
+//
+const updatedBook = { ...book, moviePublicationDate: "2001-12-19" };
 updatedBook;

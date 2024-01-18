@@ -48,12 +48,43 @@ const pizzaData = [
 function App() {
   return (
     <div>
-      <h1>Hello pita!</h1>
+      <Header />
+      <Menu />
+      <Footer />
+    </div>
+  );
+}
+//Component for header
+function Header() {
+  return <h1>Pita's Pizza Co.</h1>;
+}
+
+function Menu() {
+  return (
+    <div>
+      <h2>Our menu</h2>
       <Pizza />
     </div>
   );
 }
 
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 8;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+
+  //   if (hour >= openHour && hour <= closeHour) {
+  //     alert("We're currently open!");
+  //   } else {
+  //     alert("Sorry, we are closed!");
+  //   }
+  //   console.log(hour);
+  return (
+    <footer>{new Date().toLocaleTimeString()}. We're currently open!</footer>
+  );
+  //return React.createElement("footer", null, "We're currently open!");
+}
 //New componenet and we do them with functions
 function Pizza() {
   return (

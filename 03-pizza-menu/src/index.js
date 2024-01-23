@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 const pizzaData = [
   {
     name: "Focaccia",
@@ -56,7 +57,13 @@ function App() {
 }
 //Component for header
 function Header() {
-  return <h1>Pita's Pizza Co.</h1>;
+  // const style = { color: "red", dontSize: "48px", textTransform: "uppercase" };
+  const style = {};
+  return (
+    <header className="header">
+      <h1 style={style}>Pita's Pizza Co.</h1>
+    </header>
+  );
 }
 
 function Menu() {

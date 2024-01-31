@@ -68,10 +68,21 @@ function Header() {
 
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
-    </div>
+      <Pizza
+        name="Pizza Spinaci"
+        photoName="pizzas/spinaci.jpg"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        price={12}
+      />
+      <Pizza
+        name="Pizza Margherita"
+        photoName="pizzas/margherita.jpg"
+        ingredients="Tomato and mozarella"
+        price={10}
+      />
+    </main>
   );
 }
 
@@ -93,12 +104,13 @@ function Footer() {
   //return React.createElement("footer", null, "We're currently open!");
 }
 //New componenet and we do them with functions
-function Pizza() {
+function Pizza(props) {
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <h3>{props.name}</h3>
+      <p>{props.ingredients}</p>
+      <scan>{props.price}</scan>
     </div>
   );
 }
